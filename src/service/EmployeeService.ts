@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import Employee from "../model/Employee";
 import { Observable } from "rxjs";
@@ -19,7 +19,10 @@ export default class EmployeeService {
   }
 
   getAll():Observable<Employee[]>{
-    return this.http.get<Employee[]>("http://localhost:8080/api/employee/all")
+    const token = localStorage.getItem("token")
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+  return this.http.get<Employee[]>("http://localhost:8080/api/employee/all", { headers });
   }
 
   delete(employeeId:number){
