@@ -1,0 +1,38 @@
+
+<form class="form">
+    <!-- Header -->
+    <div class="form-header">
+        <p class="title">Create Account</p>
+        <p class="message">Join us today and unlock amazing features</p>
+    </div>
+
+    <!-- Name Fields -->
+
+    <!-- Email Field -->
+    <label>
+        <input [(ngModel)]="form.username" name="username"  class="input" type="text" placeholder=" " required>
+        <span>Username</span>
+    </label>
+
+    <!-- Password Field -->
+    <label>
+        <input [(ngModel)]="form.password" name="password" class="input" type="password" placeholder=" " required>
+        <span>Password</span>
+    </label>
+    <!-- Terms and Conditions -->
+    <div class="terms-container">
+        <input type="checkbox" class="terms-checkbox" id="terms" required>
+        <label for="terms" class="terms-text">
+            I agree to the <a >Terms of Service</a> and <a >Privacy Policy</a>
+        </label>
+    </div>
+
+    <!-- Submit Button -->
+    <button class="submit" type="button" (click)="onSubmit()">Create Account</button>
+
+    <!-- Sign In Link -->
+    <p class="signin">
+        Already have an account? <a>Login In</a>
+    </p>
+
+</form>
