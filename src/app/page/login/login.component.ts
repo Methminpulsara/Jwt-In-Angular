@@ -19,19 +19,20 @@ export class LoginComponent {
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  onSubmit() {
-    this.auth.login(this.form).subscribe({
-      next: (res) => {
-        if (res.token) {
-          this.auth.saveToken(res.token);
-          this.router.navigate(['/dashboard']);
-        } else {
-          alert(res.error || 'Login failed');
-        }
-      },
-      error: () => alert('Login failed')
-    });
-  }
+// login.component.ts
+// login.component.ts
+onSubmit() {
+  this.auth.login(this.form).subscribe({
+    next: (res) => {
+      if (res.token) {
+        this.auth.saveToken(res.token);
+        console.log('[Login] Token saved to localStorage:', res.token); // 🚨 Debug log
+        this.router.navigate(['/dashboard']);
+      }
+    },
+    error: (err) => console.error('Login error:', err),
+  });
+}
 
 
 }
