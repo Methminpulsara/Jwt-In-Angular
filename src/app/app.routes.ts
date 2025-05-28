@@ -6,7 +6,6 @@ import { LoginComponent } from './page/login/login.component';
 import { RegisterComponent } from './page/register/register.component';
 import { AuthGuard } from './auth.guard';
 
-
 export const routes: Routes = [
   {
     path: '',
