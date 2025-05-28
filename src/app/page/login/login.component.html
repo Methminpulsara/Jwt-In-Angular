@@ -10,13 +10,13 @@
 
     <!-- Email Field -->
     <label>
-        <input [(ngModel)]="form.username" name="username"  class="input" type="text" placeholder=" " required>
+        <input [(ngModel)]="username" name="username"  class="input" type="text" placeholder=" " required>
         <span>Username</span>
     </label>
 
     <!-- Password Field -->
     <label>
-        <input [(ngModel)]="form.password" name="password" class="input" type="password" placeholder=" " required>
+        <input [(ngModel)]="password" name="password" class="input" type="password" placeholder=" " required>
         <span>Password</span>
     </label>
     <!-- Terms and Conditions -->
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Submit Button -->
-    <button class="submit" type="button" (click)="onSubmit()">Create Account</button>
+    <button class="submit" type="button" (click)="login()">Create Account</button>
 
     <!-- Sign In Link -->
     <p class="signin">

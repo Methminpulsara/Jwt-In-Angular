@@ -12,27 +12,24 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
- form = {
-    username: '',
-    password: ''
-  };
+ username = '';
+  password = '';
+  error = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
-// login.component.ts
-// login.component.ts
-onSubmit() {
-  this.auth.login(this.form).subscribe({
-    next: (res) => {
-      if (res.token) {
-        this.auth.saveToken(res.token);
-        console.log('[Login] Token saved to localStorage:', res.token); // 🚨 Debug log
-        this.router.navigate(['/dashboard']);
-      }
-    },
-    error: (err) => console.error('Login error:', err),
-  });
-}
-
-
+  login() {
+    this.auth.login({ username: this.username, password: this.password })
+      .subscribe({
+        next: (res) => {
+          if (res.token) {
+            this.auth.saveToken(res.token);
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.error = res.error;
+          }
+        },
+        error: () => this.error = 'Invalid credentials.'
+      });
+  }
 }

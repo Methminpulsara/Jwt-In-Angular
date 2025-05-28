@@ -11,23 +11,33 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-   form = {
+ form = {
     name: '',
     email: '',
     username: '',
     password: ''
   };
 
-  constructor(private auth: AuthService,private router: Router) {}
+  error = '';
+  message = '';
 
-onSubmit() {
-  this.auth.register(this.form).subscribe({
-    next: (res) => {
-      alert(res.message || res.error);
-      this.router.navigate(['/login']);
-    },
-    error: () => alert('Registration failed')
-  });
-}
+  constructor(private auth: AuthService, private router: Router) {}
+
+  onSubmit() {
+    this.auth.register(this.form).subscribe({
+      next: (res) => {
+        // Handle based on backend structure
+        if (res?.error) {
+          this.error = res.error;
+        } else {
+          this.message = res?.message || 'Registered successfully!';
+          this.router.navigate(['/login']);
+        }
+      },
+      error: (err) => {
+        this.error = err?.error?.error || 'Registration failed';
+      }
+    });
+  }
 
 }

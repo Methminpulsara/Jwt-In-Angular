@@ -24,19 +24,11 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DhashboardComponent,
     canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
-      {
-        path: '',
-        component: AddEmployeeComponent
-      },
-      {
-        path: 'add',
-        component: AddEmployeeComponent
-      },
-      {
-        path: 'manage',
-        component: ManageComponent
-      }
+      { path: '', component: AddEmployeeComponent },
+      { path: 'add', component: AddEmployeeComponent },
+      { path: 'manage', component: ManageComponent }
     ]
   }
 ];

@@ -1,61 +1,52 @@
-import { HttpClient } from '@angular/common/http';
+// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface RegisterRequest {
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
+
+export interface RegisterRequest {
   name: string;
   email: string;
   username: string;
   password: string;
 }
 
-interface RegisterResponse {
-  message: string;
-  error?: string;
-}
-
-interface LoginResponse {
+export interface LoginResponse {
   token: string;
   time: string;
+  error: string;
   message: string;
-  error?: string;
 }
 
-interface LogingRequest{
-  username:string;
-  password:string;
-}
-
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080/api/auth'; // Your backend URL
+  [x: string]: any;
+  private baseUrl = 'http://localhost:8080/api/auth';
 
   constructor(private http: HttpClient) {}
 
-  login(data: LogingRequest): Observable<LoginResponse> {
+  login(data: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.baseUrl}/login`, data);
   }
 
-  register(data: RegisterRequest): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(`${this.baseUrl}/register`, data);
+  register(data: RegisterRequest): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, data);
   }
 
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getToken(): string|null{
-    return localStorage.getItem('token');
+  saveToken(token:string){
+      localStorage.setItem('token',token);
+      console.log("registered token",token);
   }
 
   logout() {
     localStorage.removeItem('token');
   }
 
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
   }
 }
