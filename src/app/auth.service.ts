@@ -21,30 +21,33 @@ interface LoginResponse {
   error?: string;
 }
 
+interface LogingRequest{
+  username:string;
+  password:string;
+}
+
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080'; // Your backend URL
+  private baseUrl = 'http://localhost:8080/api/auth'; // Your backend URL
 
   constructor(private http: HttpClient) {}
 
-  register(data: RegisterRequest): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(
-      `${this.apiUrl}/api/auth/register`,
-      data
-    );
+  login(data: LogingRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.baseUrl}/login`, data);
   }
 
-  login(credentials: { username: string; password: string }): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/api/auth/login`, credentials);
+  register(data: RegisterRequest): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.baseUrl}/register`, data);
   }
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
   }
 
-  getToken(): string | null {
+  getToken(): string|null{
     return localStorage.getItem('token');
   }
 
