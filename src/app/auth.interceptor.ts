@@ -5,6 +5,7 @@ import {
   HttpRequest,
   HttpHandlerFn
 } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>, next: HttpHandlerFn) => {
