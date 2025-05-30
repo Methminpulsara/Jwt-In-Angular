@@ -3,7 +3,9 @@ import { Injectable } from "@angular/core";
 import Employee from "../model/Employee";
 import { Observable } from "rxjs";
 
-@Injectable ({providedIn:'root'})
+@Injectable ({
+  providedIn:'root'
+})
 
 export default class EmployeeService {
   private baseUrl = 'http://localhost:8080/api/employee';
